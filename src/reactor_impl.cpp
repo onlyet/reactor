@@ -1,4 +1,4 @@
-#include <map>
+﻿#include <map>
 
 #include "event.h"
 #include "event_handle.h"
@@ -55,8 +55,9 @@ void ReactorImplementation::remove( EventHandler* handler )
     int handle = handler->get_handle();
     demultiplexer->remove( handle );
 
-    iterator it = handlers.find( handle );
-    delete it->second;
+    //iterator it = handlers.find( handle );
+    //delete it->second;
+	delete handler;
 
     handlers.erase( handle );
 }

@@ -1,4 +1,4 @@
-#include <map>
+﻿#include <map>
 #include <vector>
 
 #include <unistd.h>
@@ -72,8 +72,9 @@ int EpollDemultiplexer::regist(Handle handle, Event evt)
 
     if ( evt & ReadEvent )
     {
+		ev.events = EPOLLIN;
         //ev.events |= EPOLLIN;	//fck you
-		ev.events = EPOLLIN | EPOLLERR;
+		//ev.events = EPOLLIN | EPOLLERR;
     }
     if ( evt & WriteEvent )
     {
