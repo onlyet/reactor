@@ -5,10 +5,11 @@
 
 #include "reactor.h"
 
-Reactor Reactor::reactor;
+//Reactor Reactor::reactor;
 
 Reactor& Reactor::get_instance()
 {
+	static Reactor reactor;
     return reactor;
 }
 
@@ -23,9 +24,9 @@ Reactor::~Reactor()
         delete impl;
 }
 
-int Reactor::regist( EventHandler* handle, Event evt )
+int Reactor::register_( EventHandler* handle, Event evt )
 {
-    return impl->regist( handle, evt );
+    return impl->register_( handle, evt );
 }
 
 void Reactor::remove( EventHandler* handle )

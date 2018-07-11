@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
     Reactor& actor = Reactor::get_instance();
     EventHandler* handle = new ListenHandle( listenfd );
-    actor.regist( handle, ReadEvent );
+    actor.register_( handle, ReadEvent );
 
     while( true )
     {

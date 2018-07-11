@@ -37,9 +37,9 @@ ReactorImplementation::~ReactorImplementation()
         delete demultiplexer;
 }
 
-int ReactorImplementation::regist( EventHandler* handler, Event evt )
+int ReactorImplementation::register_( EventHandler* handler, Event evt )
 {
-    int handle = handler->get_handle();
+    Handle handle = handler->get_handle();
 
     if ( handlers.end() == handlers.find( handle ) )
     {
@@ -47,7 +47,7 @@ int ReactorImplementation::regist( EventHandler* handler, Event evt )
 		handlers.insert(std::make_pair(handle, handler));
     }
 
-    return demultiplexer->regist( handle, evt ); 
+    return demultiplexer->register_( handle, evt ); 
 }
 
 void ReactorImplementation::remove( EventHandler* handler )

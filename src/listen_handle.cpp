@@ -28,10 +28,6 @@ void ListenHandle::handle_read()
     EventHandler *h = new SockHandle( fd );
 
     Reactor& r = Reactor::get_instance();
-    r.regist( h, ReadEvent );
+    r.register_( h, ReadEvent );
 }
 
-void ListenHandle::handle_error()
-{
-    
-}

@@ -3,19 +3,19 @@
 
 class SockHandle : public EventHandler
 {
-  public:
-    SockHandle( Handle fd );
-    virtual ~SockHandle();
+public:
+	SockHandle(Handle fd);
+	virtual ~SockHandle() override;
 
-    virtual Handle get_handle() const;
-    virtual void handle_read();
-    virtual void handle_write();
-    virtual void handle_error();
+	virtual Handle get_handle() const override;
+	virtual void handle_read() override;
+	virtual void handle_write() override;
+	virtual void handle_error() override;
 
-  private:
-    Handle sock_fd;
-    char* buf;
-    static const int MAX_SIZE = 1024;
+private:
+	Handle sock_fd;
+	char* buf;
+	static const int MAX_SIZE = 1024;
 };
 
 #endif

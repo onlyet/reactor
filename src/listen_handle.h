@@ -3,17 +3,17 @@
 
 class ListenHandle : public EventHandler
 {
-  public:
-    ListenHandle( int fd );
-    virtual ~ListenHandle();
+public:
+	ListenHandle(int fd);
+	virtual ~ListenHandle() override;
 
-    virtual Handle get_handle() const { return listen_fd; }
-    virtual void handle_read();
-    virtual void handle_write() {}
-    virtual void handle_error(); 
+	virtual Handle get_handle() const override { return listen_fd; }
+	virtual void handle_read() override;
+	virtual void handle_write() override {}
+	virtual void handle_error() override {}
 
-  private:
-    Handle listen_fd;
+private:
+	Handle listen_fd;
 };
 
 #endif

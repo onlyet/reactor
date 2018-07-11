@@ -4,17 +4,17 @@
 class EpollDemultiplexer : public EventDemultiplexer
 {
 public:
-    EpollDemultiplexer();
-    virtual ~EpollDemultiplexer();
+	EpollDemultiplexer();
+	virtual ~EpollDemultiplexer() override;
 
-    virtual int wait_event( std::map<Handle, EventHandler *>&  handlers,
-                           int timeout = 0) ;
-    virtual int regist(Handle handle, Event evt) ;
-    virtual int remove(Handle handle) ;
+	virtual int wait_event(std::map<Handle, EventHandler *>&  handlers,
+		int timeout = 0) override;
+	virtual int register_(Handle handle, Event evt) override;
+	virtual int remove(Handle handle) override;
 
 private:
-    int max_fd;
-    int epoll_fd;
+	int max_fd;
+	int epoll_fd;
 };
 
 #endif

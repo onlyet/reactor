@@ -18,7 +18,8 @@
 EpollDemultiplexer::EpollDemultiplexer()
 :max_fd(0)
 {
-    epoll_fd = epoll_create( 1024 );
+    //epoll_fd = epoll_create( 1024 );
+	epoll_fd = epoll_create1(EPOLL_CLOEXEC);
 }
 
 EpollDemultiplexer::~EpollDemultiplexer()
@@ -64,11 +65,10 @@ int EpollDemultiplexer::wait_event(  std::map<Handle, EventHandler *>&  handlers
     return num;
 }
 
-int EpollDemultiplexer::regist(Handle handle, Event evt)
+int EpollDemultiplexer::register_(Handle handle, Event evt)
 {
     struct epoll_event ev;
 
-    ev.data.fd = handle;
 
     if ( evt & ReadEvent )
     {
@@ -78,8 +78,9 @@ int EpollDemultiplexer::regist(Handle handle, Event evt)
     }
     if ( evt & WriteEvent )
     {
-        ev.events |= EPOLLOUT;    
+        ev.events = EPOLLOUT;    
     }
+    ev.data.fd = handle;
     ev.events |= EPOLLET;
 
 	int ret;
@@ -88,15 +89,17 @@ int EpollDemultiplexer::regist(Handle handle, Event evt)
 		printf("ret = %d\n", ret);
 		perror("epoll_ctl");
 		exit(-1);
-        if ( errno == ENOENT ) 
-        {
-            if ( 0 != epoll_ctl( epoll_fd, EPOLL_CTL_ADD, handle, &ev ) )
-            {
-                printf("epoll_ctrl add error : %s\n", strerror(errno));
-                return -errno;
-            }
-            ++max_fd;
-        }
+		//ENOENT
+		//op was EPOLL_CTL_MOD or EPOLL_CTL_DEL, and fd is not registered with this epoll instance.
+        //if ( errno == ENOENT ) 
+        //{
+        //    if ( 0 != epoll_ctl( epoll_fd, EPOLL_CTL_ADD, handle, &ev ) )
+        //    {
+        //        printf("epoll_ctrl add error : %s\n", strerror(errno));
+        //        return -errno;
+        //    }
+        //    ++max_fd;
+        //}
     }
     else
         ++max_fd;

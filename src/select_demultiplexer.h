@@ -9,18 +9,18 @@
 class SelectDemultiplexer : public EventDemultiplexer
 {
 public:
-    SelectDemultiplexer();
-    virtual ~SelectDemultiplexer();
+	SelectDemultiplexer();
+	virtual ~SelectDemultiplexer() override;
 
-    virtual int wait_event( std::map<Handle, EventHandler *>&  handlers,
-                           int timeout = 0) ;
-    virtual int regist(Handle handle, Event evt) ;
-    virtual int remove(Handle handle) ;
+	virtual int wait_event(std::map<Handle, EventHandler *>&  handlers,
+		int timeout = 0) override;
+	virtual int register_(Handle handle, Event evt) override;
+	virtual int remove(Handle handle) override;
 
 private:
-    fd_set read_set;
-    fd_set write_set;
-    fd_set err_set;
+	fd_set read_set;
+	fd_set write_set;
+	fd_set err_set;
 };
 
 #endif

@@ -13,19 +13,19 @@ class Reactor
 public:
     static Reactor& get_instance();
 
-    int regist(EventHandler * handler, Event evt);
+    int register_(EventHandler * handler, Event evt);
     void remove(EventHandler * handler);
     void event_loop(int timeout = 0);
-
+	
 private:
     Reactor();
     ~Reactor();
-    Reactor(const Reactor &);
-    Reactor & operator=(const Reactor &);
+	Reactor(const Reactor &) = delete;
+	Reactor & operator=(const Reactor &) = delete;
 
 private:
     ReactorImplementation* impl;
-    static Reactor reactor;
+    //static Reactor reactor;
 };
 
 #endif

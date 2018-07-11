@@ -27,7 +27,7 @@ SelectDemultiplexer::~SelectDemultiplexer()
 
 }
 
-int SelectDemultiplexer::regist( Handle handle, Event evt )
+int SelectDemultiplexer::register_( Handle handle, Event evt )
 {
     if ( evt | ReadEvent )
         FD_SET( handle, &read_set );
